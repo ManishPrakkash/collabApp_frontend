@@ -62,6 +62,10 @@ function SignUpForm() {
     setRegistrationSuccess(false);
 
     try {
+      console.log("Starting registration process for:", email);
+      
+      // Step 1: Register the user
+      console.log("Sending registration request to API");
       const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,18 +73,30 @@ function SignUpForm() {
       });
 
       const data = await response.json();
-
+      console.log("Registration response status:", response.status);
+      
       if (!response.ok) {
+        console.error("Registration API error:", data);
         throw new Error(data.message || "Registration failed");
       }
 
-      // Registration successful, but now we need to verify email before logging in
+      console.log("Registration successful, attempting to sign in");
+      setRegistrationSuccess(true);
+      
+      // Step 2: Sign in with the new credentials
       // Skip email verification and sign in directly
-      await signIn("credentials", {
+      const signInResult = await signIn("credentials", {
+        redirect: false,
         email,
         password,
-        callbackUrl,
       });
+      
+      console.log("Sign in result after registration:", signInResult);
+      
+      if (signInResult?.error) {
+        console.error("Auto-login after registration failed:", signInResult.error);
+        throw new Error("Registration was successful, but automatic login failed. Please try logging in manually.");
+      }
 
       // Attempt to persist the user id after sign in by querying the session
       try {

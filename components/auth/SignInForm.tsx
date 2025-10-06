@@ -79,17 +79,25 @@ function SignInForm() {
       if (result?.error) {
         console.error("NextAuth sign-in error:", result.error);
         
-        if (result.error.includes("Configuration")) {
-          console.log("NextAuth configuration error, trying direct authentication API...");
+        if (result.error.includes("Configuration") || result.error.includes("unexpected") || result.error.includes("failed")) {
+          console.log("NextAuth error, trying direct authentication API as fallback...");
           
           // Try our direct authentication API as a fallback
           try {
             console.log("Trying direct authentication API");
+            
+            // Add timeout for fetch
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            
             const directAuthResponse = await fetch('/api/auth/direct-auth', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ email, password })
+              body: JSON.stringify({ email, password }),
+              signal: controller.signal
             });
+            
+            clearTimeout(timeoutId);
             
             const authData = await directAuthResponse.json();
             

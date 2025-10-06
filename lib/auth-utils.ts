@@ -12,7 +12,10 @@ export async function signInUser(email: string, password: string) {
     
     // Add timeout for fetch to handle unresponsive API
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const timeoutId = setTimeout(() => {
+      console.log("Login request timed out, aborting");
+      controller.abort();
+    }, 15000); // 15 second timeout
     
     // Try logging in directly with the backend
     const response = await fetch(`${apiUrl}/api/auth/login`, {
@@ -20,7 +23,9 @@ export async function signInUser(email: string, password: string) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
       signal: controller.signal
-    }).finally(() => clearTimeout(timeoutId));
+    });
+    
+    clearTimeout(timeoutId);
     
     console.log("Direct sign-in response status:", response.status);
     
