@@ -3,6 +3,7 @@
 import type React from "react";
 import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
+import { setStoredUserId } from "../../lib/session-helper";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -95,6 +96,8 @@ function SignInForm() {
               console.log("Direct authentication successful");
               // Save user data in localStorage for client-side access
               localStorage.setItem('user', JSON.stringify(authData.user));
+              // store user id for X-User-Id header
+              if (authData.user?.id) setStoredUserId(authData.user.id);
               
               // The session cookie should be automatically set by the response
               console.log("Authentication successful, redirecting to dashboard");
@@ -128,6 +131,19 @@ function SignInForm() {
         }
       } else if (result?.url) {
         console.log("Sign-in successful, redirecting to:", result.url);
+        // Try to extract user id from the returned URL or result; NextAuth
+        // often populates session on redirects. We attempt to read the
+        // stored session by calling /api/auth/session, but keep this
+        // non-blocking.
+        try {
+          const sess = await fetch('/api/auth/session');
+          if (sess.ok) {
+            const sessJson = await sess.json();
+            if (sessJson?.user?.id) setStoredUserId(sessJson.user.id);
+          }
+        } catch (e) {
+          // ignore
+        }
         router.push(callbackUrl);
         router.refresh();
       } else {

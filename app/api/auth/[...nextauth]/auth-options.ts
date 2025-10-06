@@ -33,50 +33,48 @@ export const authOptions: NextAuthOptions = {
               }),
             }
           );
-          
+
           console.log("Login response status:", response.status);
-          
+
           if (!response.ok) {
             if (response.status === 403) {
               // Skip email verification - treat as verified
-              const data = await response.json();
-              
+              const data = response.data;
+
               // If it's related to email verification, try to continue anyway
-              if (data.message?.includes('verify') || data.message?.includes('verification')) {
+              if (data?.message?.includes("verify") || data?.message?.includes("verification")) {
                 try {
                   // Attempt to get user data despite verification issue
                   const userResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/users/byEmail?email=${encodeURIComponent(credentials.email)}`,
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/user/byEmail?email=${encodeURIComponent(
+                      credentials.email
+                    )}`,
                     {
-                      method: 'GET',
-                      headers: { 'Content-Type': 'application/json' }
+                      method: "GET",
+                      headers: { "Content-Type": "application/json" },
                     }
                   );
-                  
+
                   if (userResponse.ok) {
                     const userData = await userResponse.json();
                     return {
                       id: userData.id,
                       name: userData.name,
                       email: userData.email,
-                      image: userData.image
+                      image: userData.image,
                     };
                   }
                 } catch (err) {
-                  console.error('Error fetching user data:', err);
+                  console.error("Error fetching user data:", err);
                 }
               }
             }
             // other errors
-            console.error(
-              "Login failed:",
-              response.status,
-              await response.text()
-            );
+            console.error("Login failed:", response.status, response.data || null);
             return null;
           }
 
-          const user = await response.json();
+          const user = response.data;
 
           if (user && user.id) {
             return {

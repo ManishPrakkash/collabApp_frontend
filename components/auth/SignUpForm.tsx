@@ -4,6 +4,7 @@ import type React from "react";
 
 import { Suspense, useState } from "react";
 import { signIn } from "next-auth/react";
+import { setStoredUserId } from "../../lib/session-helper";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -75,11 +76,22 @@ function SignUpForm() {
 
       // Registration successful, but now we need to verify email before logging in
       // Skip email verification and sign in directly
-      await signIn('credentials', {
+      await signIn("credentials", {
         email,
         password,
-        callbackUrl
+        callbackUrl,
       });
+
+      // Attempt to persist the user id after sign in by querying the session
+      try {
+        const sess = await fetch('/api/auth/session');
+        if (sess.ok) {
+          const sessJson = await sess.json();
+          if (sessJson?.user?.id) setStoredUserId(sessJson.user.id);
+        }
+      } catch (e) {
+        // ignore
+      }
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "An unexpected error occurred"
@@ -357,7 +369,7 @@ function SignUpForm() {
             >
               <Link
                 href="/auth/signin"
-                className="flex items-center inline-flex"
+                className="inline-flex items-center"
               >
                 <ArrowLeft className="h-4 w-4 mr-1" />
                 Already have an account? Sign in
