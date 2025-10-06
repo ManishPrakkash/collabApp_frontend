@@ -56,7 +56,7 @@ In the Vercel project settings, add the following environment variables:
 | Variable | Value | Description |
 |---------|-------|-------------|
 | NEXT_PUBLIC_APP_URL | (Your Vercel deployment URL) | URL of your deployed app |
-| NEXT_PUBLIC_API_URL | (Your API URL) | URL of your backend API |
+| NEXT_PUBLIC_API_URL | https://project-name-api.onrender.com | Temporary placeholder URL for your backend (update later) |
 | NEXTAUTH_URL | (Your Vercel deployment URL) | URL for NextAuth |
 | NEXTAUTH_SECRET | (Generate a secure random string) | Secret for NextAuth JWT encryption |
 | NEXT_PUBLIC_DISABLE_EMAIL_VERIFICATION | true | Flag to disable email verification |
@@ -74,6 +74,8 @@ For OAuth providers (optional):
 2. Wait for the build and deployment to complete
 3. Once finished, Vercel will provide a deployment URL
 
+> **Note on API_URL circular dependency**: If you haven't deployed your backend yet, use a temporary placeholder for `NEXT_PUBLIC_API_URL` (like `https://your-app-name.onrender.com`). After deploying the backend to Render, come back to Vercel and update this environment variable with the actual backend URL.
+
 ### 5. Verify Deployment
 
 1. Visit your deployment URL
@@ -88,6 +90,8 @@ If you encounter issues:
    - Check the Vercel build logs
    - Ensure all dependencies are properly installed
    - Verify environment variables are set correctly
+   - For TypeScript errors related to refs in components (like `Type 'RefObject<HTMLInputElement | null>' is not assignable to type...`), make sure to properly type your refs as `React.RefObject<HTMLInputElement> | React.ForwardedRef<HTMLInputElement>`
+   - If you see `Invalid next.config.ts options detected` warnings, check for deprecated options like `swcMinify` which may need to be removed
 
 2. **Runtime Errors**:
    - Check browser console for JavaScript errors

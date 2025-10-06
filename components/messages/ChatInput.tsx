@@ -13,7 +13,7 @@ interface ChatInputProps {
   onSendMessage: (content: string) => void;
   onTyping?: (isTyping: boolean) => void;
   isLoading: boolean;
-  inputRef?: RefObject<HTMLInputElement | null>;
+  inputRef?: React.RefObject<HTMLInputElement> | React.ForwardedRef<HTMLInputElement>;
   disabled?: boolean;
   fallbackMode?: boolean;
   placeholder?: string;

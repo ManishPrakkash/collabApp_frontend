@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
-  swcMinify: true,
   productionBrowserSourceMaps: false, // Disable source maps in production for better performance
 
   // Image optimization
