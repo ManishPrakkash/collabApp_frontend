@@ -17,24 +17,22 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        const { apiClient } = await import("../../../../lib/api-client");
+          
         try {
-          console.log("Starting login process for:", credentials.email);
+          console.log("Login attempt for:", credentials.email);
           
-          // Get API URL with fallback
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com';
-          console.log("Using API URL:", apiUrl);
-          
-          // Make login request to backend
-          const response = await fetch(`${apiUrl}/api/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: credentials.email,
-              password: credentials.password,
-            }),
-          });
-          
-          console.log("Login response status:", response.status);
+          const response = await apiClient.fetch(
+            `/api/auth/login`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          );
           
           console.log("Login response status:", response.status);
           
