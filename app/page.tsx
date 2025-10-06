@@ -2,7 +2,8 @@
 
 import React, { useRef, useEffect, Suspense } from "react";
 import { useInView } from "framer-motion";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -99,6 +100,26 @@ function Home() {
   );
 }
 
+// Authentication check component to redirect if already signed in
+function AuthCheck() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      // User is logged in, redirect to dashboard
+      router.replace('/(workspace)/dashboard');
+    }
+  }, [session, status, router]);
+  
+  return null;
+}
+
 export default function HomePage() {
-  return <Home />;
+  return (
+    <>
+      <AuthCheck />
+      <Home />
+    </>
+  );
 }

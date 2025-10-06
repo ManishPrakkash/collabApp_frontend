@@ -113,10 +113,18 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // After sign in, redirect to the dashboard
+      // After sign in, redirect to the dashboard page
       if (url.startsWith(baseUrl)) {
-        // We're redirecting to /dashboard which has a client-side redirect to the actual dashboard
-        return `${baseUrl}/dashboard`;
+        // Check if the callback URL includes a specific destination
+        if (url.includes("callbackUrl=")) {
+          // Extract the callbackUrl parameter
+          const callbackUrl = new URL(url).searchParams.get("callbackUrl");
+          if (callbackUrl) {
+            return callbackUrl.startsWith("/") ? `${baseUrl}${callbackUrl}` : callbackUrl;
+          }
+        }
+        // Default redirect to the main app page which should handle authentication checks
+        return `${baseUrl}`;
       }
       // Allows callbacks to external sites
       return url;
