@@ -16,9 +16,13 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        const { apiClient } = await import("../../../../lib/api-client");
+          
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+          console.log("Login attempt for:", credentials.email);
+          
+          const response = await apiClient.fetch(
+            `/api/auth/login`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -28,7 +32,9 @@ export const authOptions: NextAuthOptions = {
               }),
             }
           );
-
+          
+          console.log("Login response status:", response.status);
+          
           if (!response.ok) {
             if (response.status === 403) {
               // Skip email verification - treat as verified

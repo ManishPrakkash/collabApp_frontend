@@ -16,6 +16,7 @@ import {
   UserIcon,
   Loader2,
 } from "lucide-react";
+import { apiClient } from "@/lib/api-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -61,6 +62,9 @@ function SignUpForm() {
     setRegistrationSuccess(false);
 
     try {
+      console.log("Submitting registration form:", { name, email, passwordLength: password.length });
+      
+      // Use the frontend API route which in turn uses apiClient
       const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,19 +72,33 @@ function SignUpForm() {
       });
 
       const data = await response.json();
+      console.log("Registration API response:", { status: response.status, data });
 
       if (!response.ok) {
+        console.error("Registration failed:", data);
         throw new Error(data.message || "Registration failed");
       }
 
-      // Registration successful, but now we need to verify email before logging in
+      console.log("Registration successful, attempting sign in");
+      
       // Skip email verification and sign in directly
-      await signIn('credentials', {
+      const signInResult = await signIn('credentials', {
         email,
         password,
-        callbackUrl
+        callbackUrl,
+        redirect: false
       });
+      
+      console.log("Sign in result:", signInResult);
+      
+      if (signInResult?.error) {
+        setError(`Sign-in after registration failed: ${signInResult.error}`);
+      } else if (signInResult?.url) {
+        // Manually navigate to the callback URL
+        window.location.href = signInResult.url;
+      }
     } catch (error) {
+      console.error("Registration error:", error);
       setError(
         error instanceof Error ? error.message : "An unexpected error occurred"
       );
@@ -357,7 +375,7 @@ function SignUpForm() {
             >
               <Link
                 href="/auth/signin"
-                className="flex items-center inline-flex"
+                className="items-center flex"
               >
                 <ArrowLeft className="h-4 w-4 mr-1" />
                 Already have an account? Sign in
