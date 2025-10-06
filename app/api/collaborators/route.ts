@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
       url += `&search=${encodeURIComponent(search)}`;
     }
 
+    
     // Request to the backend service
     const response = await fetch(url, {
       method: "GET",
