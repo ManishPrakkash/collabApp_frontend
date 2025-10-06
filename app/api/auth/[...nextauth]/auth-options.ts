@@ -120,15 +120,6 @@ export const authOptions: NextAuthOptions = {
       // Allows callbacks to external sites
       return url;
     },
-    callbacks: {
-    async redirect({ url, baseUrl }) {
-      // After sign in, redirect to the dashboard
-      if (url.startsWith(baseUrl)) {
-        return `${baseUrl}/(workspace)/dashboard`;
-      }
-      // Allows callbacks to external sites
-      return url;
-    },
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;

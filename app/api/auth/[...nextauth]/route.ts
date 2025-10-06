@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
-// Use the fixed auth options file
-import { authOptions } from "./auth-options-fixed";
+import { authOptions } from "./auth-options";
 
 // For production/Vercel deployments - ensure NEXTAUTH_URL is set
 if (!process.env.NEXTAUTH_URL && typeof process.env.VERCEL_URL !== 'undefined') {
