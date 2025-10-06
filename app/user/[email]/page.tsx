@@ -4,6 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
+  
   Loader2,
   Mail,
   Briefcase,
