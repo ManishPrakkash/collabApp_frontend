@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
+    
     const userId = session.user.id;
     const { searchParams } = new URL(request.url);
     const days = searchParams.get("days") || "7";
