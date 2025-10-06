@@ -1,5 +1,18 @@
 import NextAuth from "next-auth";
-import { authOptions } from "./auth-options";
+// Use the fixed auth options file
+import { authOptions } from "./auth-options-fixed";
+
+// For production/Vercel deployments - ensure NEXTAUTH_URL is set
+if (!process.env.NEXTAUTH_URL && typeof process.env.VERCEL_URL !== 'undefined') {
+  process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_URL}`;
+  console.log("Setting NEXTAUTH_URL from VERCEL_URL:", process.env.NEXTAUTH_URL);
+}
+
+// If still no NEXTAUTH_URL and in production, use hardcoded Vercel URL
+if (!process.env.NEXTAUTH_URL && process.env.NODE_ENV === 'production') {
+  process.env.NEXTAUTH_URL = 'https://collabit-nu.vercel.app';
+  console.log("Setting fallback NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+}
 
 // Log important configuration details for debugging
 console.log("NextAuth Route - Environment Variables:");

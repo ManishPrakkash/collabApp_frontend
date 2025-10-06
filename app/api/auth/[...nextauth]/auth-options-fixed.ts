@@ -120,15 +120,6 @@ export const authOptions: NextAuthOptions = {
       // Allows callbacks to external sites
       return url;
     },
-    callbacks: {
-    async redirect({ url, baseUrl }) {
-      // After sign in, redirect to the dashboard
-      if (url.startsWith(baseUrl)) {
-        return `${baseUrl}/(workspace)/dashboard`;
-      }
-      // Allows callbacks to external sites
-      return url;
-    },
     async jwt({ token, user, account, profile }) {
       if (user) {
         token.id = user.id;
@@ -148,7 +139,7 @@ export const authOptions: NextAuthOptions = {
           // syncing OAuth info with backend
           const fetchUserResponse = await fetch(
             `${
-              process.env.NEXT_PUBLIC_API_URL
+              process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com'
             }/api/users/byEmail?email=${encodeURIComponent(
               token.email as string
             )}`,
@@ -164,7 +155,7 @@ export const authOptions: NextAuthOptions = {
           }
 
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/api/auth/oauth`,
+            `${process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com'}/api/auth/oauth`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

@@ -40,7 +40,14 @@
   "framework": "nextjs",
   "env": {
     "NODE_ENV": "production",
+    "NEXT_PUBLIC_API_URL": "https://project-management-api-e6xs.onrender.com",
+    "BACKEND_URL": "https://project-management-api-e6xs.onrender.com",
+    "NEXT_PUBLIC_SOCKET_URL": "https://project-management-api-e6xs.onrender.com",
+    "NEXT_PUBLIC_UPLOAD_API_URL": "https://project-management-api-e6xs.onrender.com/api/uploads",
     "NEXT_PUBLIC_DISABLE_EMAIL_VERIFICATION": "true",
-    "NEXT_PUBLIC_DISABLE_SUBSCRIPTION": "true"
+    "NEXT_PUBLIC_DISABLE_SUBSCRIPTION": "true",
+    "NEXTAUTH_URL": "https://collabit-nu.vercel.app",
+    "NEXT_PUBLIC_APP_URL": "https://collabit-nu.vercel.app",
+    "NEXTAUTH_SECRET": "7a3d323032111ba012b1e242ff24c77e7b955a24077394676c1f22e765f5a3bb"
   }
 }
