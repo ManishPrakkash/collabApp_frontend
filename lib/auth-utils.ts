@@ -10,12 +10,17 @@ export async function signInUser(email: string, password: string) {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com';
     console.log("Direct sign-in: Using API URL:", apiUrl);
     
+    // Add timeout for fetch to handle unresponsive API
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    
     // Try logging in directly with the backend
     const response = await fetch(`${apiUrl}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
-    });
+      signal: controller.signal
+    }).finally(() => clearTimeout(timeoutId));
     
     console.log("Direct sign-in response status:", response.status);
     

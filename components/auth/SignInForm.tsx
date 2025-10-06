@@ -65,6 +65,7 @@ function SignInForm() {
 
     try {
       console.log("Attempting to sign in with:", email);
+      console.log("API URL:", process.env.NEXT_PUBLIC_API_URL || 'Not set');
       
       // Try NextAuth first
       const result = await signIn("credentials", {
@@ -114,7 +115,7 @@ function SignInForm() {
             }
           } catch (directAuthError) {
             console.error("Direct auth API error:", directAuthError);
-            setError("Authentication service error. Please try again later.");
+            setError("Authentication service error: The backend API may be unavailable or still starting up. Please try again in a few minutes.");
           }
         } else {
           // Try to parse other NextAuth errors

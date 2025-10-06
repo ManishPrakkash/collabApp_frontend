@@ -43,9 +43,15 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("Direct auth API error:", error);
+    const errorMessage = error instanceof Error 
+      ? `${error.message} (API URL: ${process.env.NEXT_PUBLIC_API_URL || 'Not set'})` 
+      : "An unexpected error occurred";
+    
+    console.error("Detailed error info:", errorMessage);
+    
     return NextResponse.json({ 
       success: false, 
-      error: error instanceof Error ? error.message : "An unexpected error occurred" 
+      error: errorMessage 
     }, { status: 500 });
   }
 }
