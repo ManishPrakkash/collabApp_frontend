@@ -45,8 +45,12 @@ export const authOptions: NextAuthOptions = {
               if (data?.message?.includes("verify") || data?.message?.includes("verification")) {
                 try {
                   // Attempt to get user data despite verification issue
+                  // Use fallback URL if environment variable is not set
+                  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com';
+                  console.log("Using API URL for user lookup:", apiUrl);
+                  
                   const userResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/user/byEmail?email=${encodeURIComponent(
+                    `${apiUrl}/api/user/byEmail?email=${encodeURIComponent(
                       credentials.email
                     )}`,
                     {

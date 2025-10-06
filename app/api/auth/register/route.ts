@@ -10,16 +10,12 @@ export async function POST(request: NextRequest) {
       hasPassword: !!body.password
     });
     
-    // Check if API URL is properly set
-    if (!process.env.NEXT_PUBLIC_API_URL) {
-      console.error("NEXT_PUBLIC_API_URL is not set - cannot register user");
-      return NextResponse.json(
-        { message: "Registration failed: Backend API URL not configured" },
-        { status: 500 }
-      );
-    }
+    // Use hardcoded URL as fallback if environment variable is not set
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com';
+    console.log("NEXT_PUBLIC_API_URL value:", process.env.NEXT_PUBLIC_API_URL);
+    console.log("Using API URL:", apiUrl);
     
-    console.log("Sending registration request to:", `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`);
+    console.log("Sending registration request to:", `${apiUrl}/api/auth/register`);
 
     // Add timeout for fetch to handle unresponsive API
     const controller = new AbortController();
@@ -28,7 +24,7 @@ export async function POST(request: NextRequest) {
     // request to the backend API
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+        `${apiUrl}/api/auth/register`,
         {
           method: "POST",
           headers: {
@@ -37,7 +33,10 @@ export async function POST(request: NextRequest) {
           body: JSON.stringify(body),
           signal: controller.signal
         }
-      ).finally(() => clearTimeout(timeoutId));
+      );
+      
+      // Clear timeout after request completes
+      clearTimeout(timeoutId);
       
       console.log("Registration response status:", response.status);
       
