@@ -13,25 +13,28 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.log("Missing credentials");
           return null;
         }
 
-        const { apiClient } = await import("../../../../lib/api-client");
-          
         try {
-          console.log("Login attempt for:", credentials.email);
+          console.log("Starting login process for:", credentials.email);
           
-          const response = await apiClient.fetch(
-            `/api/auth/login`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password,
-              }),
-            }
-          );
+          // Get API URL with fallback
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://project-management-api-e6xs.onrender.com';
+          console.log("Using API URL:", apiUrl);
+          
+          // Make login request to backend
+          const response = await fetch(`${apiUrl}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          });
+          
+          console.log("Login response status:", response.status);
           
           console.log("Login response status:", response.status);
           
@@ -195,7 +198,9 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   debug: process.env.NODE_ENV === "development",
-  secret: process.env.NEXTAUTH_SECRET,
+  // Always provide a fallback secret to prevent Configuration errors
+  secret: process.env.NEXTAUTH_SECRET || "7a3d323032111ba012b1e242ff24c77e7b955a24077394676c1f22e765f5a3bb",
 };

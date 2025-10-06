@@ -63,24 +63,72 @@ function SignInForm() {
     setResendSuccess(false);
 
     try {
+      console.log("Attempting to sign in with:", email);
+      
+      // Try NextAuth first
       const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
+      
+      console.log("Sign-in result:", result);
 
       if (result?.error) {
-        try {
-          const errorData = JSON.parse(result.error);
-          if (errorData.emailVerified === false && errorData.email) {
-            setUnverifiedEmail(errorData.email);
-            setError("Please verify your email to sign in.");
-            return;
+        console.error("NextAuth sign-in error:", result.error);
+        
+        if (result.error.includes("Configuration")) {
+          console.log("NextAuth configuration error, trying direct authentication API...");
+          
+          // Try our direct authentication API as a fallback
+          try {
+            console.log("Trying direct authentication API");
+            const directAuthResponse = await fetch('/api/auth/direct-auth', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email, password })
+            });
+            
+            const authData = await directAuthResponse.json();
+            
+            if (authData.success) {
+              console.log("Direct authentication successful");
+              // Save user data in localStorage for client-side access
+              localStorage.setItem('user', JSON.stringify(authData.user));
+              
+              // The cookie should be automatically set by the response
+              console.log("Authentication successful, redirecting to dashboard");
+              
+              // Force a page refresh to the dashboard
+              window.location.href = callbackUrl;
+              return;
+            } else {
+              console.error("Direct authentication failed:", authData.error);
+              setError(authData.error || "Authentication failed");
+            }
+          } catch (directAuthError) {
+            console.error("Direct auth API error:", directAuthError);
+            setError("Authentication service error. Please try again later.");
           }
-        } catch {
-          setError("Invalid email or password");
+        } else {
+          // Try to parse other NextAuth errors
+          try {
+            const errorData = JSON.parse(result.error);
+            if (errorData.emailVerified === false && errorData.email) {
+              setUnverifiedEmail(errorData.email);
+              setError("Please verify your email to sign in.");
+              return;
+            }
+          } catch (parseError) {
+            setError("Invalid email or password");
+          }
         }
+      } else if (result?.url) {
+        console.log("Sign-in successful, redirecting to:", result.url);
+        router.push(callbackUrl);
+        router.refresh();
       } else {
+        console.log("Sign-in successful but no URL returned");
         router.push(callbackUrl);
         router.refresh();
       }
