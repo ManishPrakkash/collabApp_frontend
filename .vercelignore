@@ -1,0 +1,13 @@
+.git
+.github
+.gitignore
+.vscode
+node_modules
+README.md
+.env.development
+.env.local
+components/__tests__
+jest.config.js
+jest.setup.js
+coverage
+.next/cache
