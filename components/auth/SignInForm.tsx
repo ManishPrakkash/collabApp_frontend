@@ -96,11 +96,14 @@ function SignInForm() {
               // Save user data in localStorage for client-side access
               localStorage.setItem('user', JSON.stringify(authData.user));
               
-              // The cookie should be automatically set by the response
+              // The session cookie should be automatically set by the response
               console.log("Authentication successful, redirecting to dashboard");
               
               // Force a page refresh to the dashboard
-              window.location.href = callbackUrl;
+              // Small timeout to ensure cookie is set
+              setTimeout(() => {
+                window.location.href = callbackUrl;
+              }, 100);
               return;
             } else {
               console.error("Direct authentication failed:", authData.error);
