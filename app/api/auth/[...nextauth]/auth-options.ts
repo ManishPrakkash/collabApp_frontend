@@ -115,7 +115,7 @@ export const authOptions: NextAuthOptions = {
     async redirect({ url, baseUrl }) {
       // After sign in, redirect to the dashboard
       if (url.startsWith(baseUrl)) {
-        return `${baseUrl}/(workspace)/dashboard`;
+        return `${baseUrl}/dashboard`;
       }
       // Allows callbacks to external sites
       return url;
