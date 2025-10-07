@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import SignUp from "@/components/auth/SignUpForm";
 
 export const metadata: Metadata = {
-  title: "Sign Up | ProjectCollab",
-  description: "Create a new ProjectCollab account",
+  title: "Sign Up | CollabIt",
+  description: "Create a new CollabIt account",
 };
 
 export default function SignUpPage() {

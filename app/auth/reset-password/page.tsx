@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import ResetPassword from "@/components/auth/ResetPasswordForm";
 
 export const metadata: Metadata = {
-  title: "Reset Password | ProjectCollab",
-  description: "Set a new password for your ProjectCollab account",
+  title: "Reset Password | CollabIt",
+  description: "Set a new password for your CollabIt account",
 };
 
 export default function ResetPasswordPage() {

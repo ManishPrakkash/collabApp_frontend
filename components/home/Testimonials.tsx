@@ -77,32 +77,32 @@ const Testimonials = React.forwardRef<HTMLDivElement, TestimonialsProps>(
         handle: "@sophiam_ux",
         avatar: "/female-icon.jpg?height=48&width=48",
         content:
-          "The UI of @Nothing_App is so clean and intuitive. As a UX designer, I'm impressed by how they've simplified complex workflows.",
-        highlight: "@Nothing_App",
+          "The UI of @CollabIt_App is so clean and intuitive. As a UX designer, I'm impressed by how they've simplified complex workflows.",
+        highlight: "@CollabIt_App",
       },
       {
         name: "James Thompson",
         handle: "@jamest_agile",
         avatar: "/placeholder.jpg?height=48&width=48",
         content:
-          "We've been using @Nothing_App for our sprints since March, and it's been an absolute joy. The task tracking and calendar features are perfect.",
-        highlight: "@Nothing_App",
+          "We've been using @CollabIt_App for our sprints since March, and it's been an absolute joy. The task tracking and calendar features are perfect.",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Olivia Parker",
         handle: "@oliviap_content",
         avatar: "/female-icon.jpg?height=48&width=48",
         content:
-          "@Nothing_App has the best email notification system. Never miss an update, but also not overwhelmed with alerts. Perfect balance!",
-        highlight: "@Nothing_App",
+          "@CollabIt_App has the best email notification system. Never miss an update, but also not overwhelmed with alerts. Perfect balance!",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Daniel Lee",
         handle: "@danlee_dev",
         avatar: "/placeholder.jpg?height=48&width=48",
         content:
-          "Moving from Apex to @Nothing_App was the best decision we made this year. Better UI, faster performance, and the Socket.IO integration is brilliant.",
-        highlight: "@Nothing_App",
+          "Moving from Apex to @CollabIt_App was the best decision we made this year. Better UI, faster performance, and the Socket.IO integration is brilliant.",
+        highlight: "@CollabIt_App",
       },
     ];
 
@@ -191,7 +191,7 @@ const Testimonials = React.forwardRef<HTMLDivElement, TestimonialsProps>(
               Loved by teams worldwide
             </h2>
             <p className="mt-3 sm:mt-4 max-w-2xl text-base sm:text-lg text-gray-600 dark:text-zinc-400 mx-auto px-2">
-              See what users have to say about how Nothing has transformed their
+              See what users have to say about how CollabIt has transformed their
               workflow.
             </p>
           </div>

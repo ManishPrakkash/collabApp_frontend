@@ -3,8 +3,8 @@ import Link from "next/link";
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
 
 export const metadata: Metadata = {
-  title: "Forgot Password | ProjectCollab",
-  description: "Reset your ProjectCollab account password",
+  title: "Forgot Password | CollabIt",
+  description: "Reset your CollabIt account password",
 };
 
 export default function ForgotPasswordPage() {

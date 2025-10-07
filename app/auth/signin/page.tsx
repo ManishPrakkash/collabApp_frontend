@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import SignIn from "@/components/auth/SignInForm";
 
 export const metadata: Metadata = {
-  title: "Sign In | ProjectCollab",
-  description: "Sign in to your ProjectCollab account",
+  title: "Sign In | CollabIt",
+  description: "Sign in to your CollabIt account",
 };
 
 export default function SignInPage() {
