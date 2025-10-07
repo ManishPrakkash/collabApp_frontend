@@ -58,7 +58,7 @@ export default function WorkspaceLayout({
                   <footer>
                     <div className="py-4">
                       <p className="text-center text-sm text-muted-foreground">
-                        © {new Date().getFullYear()} Nudge. All rights reserved.
+                        © {new Date().getFullYear()} CollabIt. All rights reserved.
                       </p>
                     </div>
                   </footer>

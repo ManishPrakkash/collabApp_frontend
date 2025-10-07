@@ -171,7 +171,7 @@ export default function WorkspaceSidebar() {
                     <Zap className="h-4 w-4 text-white" />
                   </div>
                   <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-700 to-purple-600">
-                    Nothing
+                    CollabIt
                   </span>
                 </Link>
               </div>
@@ -322,7 +322,7 @@ export default function WorkspaceSidebar() {
             <Zap className="h-4 w-4 text-white" />
           </div>
           <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-700 to-purple-600">
-            Nothing
+            CollabIt
           </span>
         </Link>
       </div>
@@ -417,7 +417,7 @@ export default function WorkspaceSidebar() {
           </motion.div>
 
           <span className="text-lg font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-700 to-purple-600 transition-opacity duration-200 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:hidden">
-            Nothing
+            CollabIt
           </span>
         </Link>
         <Button

@@ -25,40 +25,40 @@ const Testimonials = React.forwardRef<HTMLDivElement, TestimonialsProps>(
         handle: "@sarahjdev",
         avatar: "/female-icon.jpg?height=48&width=48",
         content:
-          "I'm using @Nothing_App for our team projects and the role-based permissions are a game-changer. No more access confusion!",
-        highlight: "@Nothing_App",
+          "I'm using @CollabIt_App for our team projects and the role-based permissions are a game-changer. No more access confusion!",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Michael Chen",
         handle: "@mchen_tech",
         avatar: "/placeholder.jpg?height=48&width=48",
         content:
-          "Switched from Dyla to @Nothing_App and our team productivity increased by 40%. The Kanban board view is incredibly intuitive.",
-        highlight: "@Nothing_App",
+          "Switched from Dyla to @CollabIt_App and our team productivity increased by 40%. The Kanban board view is incredibly intuitive.",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Emily Rodriguez",
         handle: "@emilyr_design",
         avatar: "/female-icon.jpg?height=48&width=48",
         content:
-          "The real-time chat in @Nothing_App eliminated our need for chat_App. One platform for everything = less context switching!",
-        highlight: "@Nothing_App",
+          "The real-time chat in @CollabIt_App eliminated our need for chat_App. One platform for everything = less context switching!",
+        highlight: "@CollabIt_App",
       },
       {
         name: "David Kim",
         handle: "@davidkim_dev",
         avatar: "/placeholder.jpg?height=48&width=48",
         content:
-          "Our remote team relies on @Nothing_App for everything. The file management system has been crucial for our design handoffs.",
-        highlight: "@Nothing_App",
+          "Our remote team relies on @CollabIt_App for everything. The file management system has been crucial for our design handoffs.",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Jessica Taylor",
         handle: "@jtaylor_pm",
         avatar: "/female-icon.jpg?height=48&width=48",
         content:
-          "Just migrated our entire project tracking to @Nothing_App and it's been a game changer. The dashboard gives me the perfect overview.",
-        highlight: "@Nothing_App",
+          "Just migrated our entire project tracking to @CollabIt_App and it's been a game changer. The dashboard gives me the perfect overview.",
+        highlight: "@CollabIt_App",
       },
     ];
 
@@ -69,8 +69,8 @@ const Testimonials = React.forwardRef<HTMLDivElement, TestimonialsProps>(
         handle: "@alexw_cto",
         avatar: "/placeholder.jpg?height=48&width=48",
         content:
-          "As a CTO, I appreciate how @Nothing_App handles permissions. The three-tier system (Admin, Editor, Member) is exactly what we needed.",
-        highlight: "@Nothing_App",
+          "As a CTO, I appreciate how @CollabIt_App handles permissions. The three-tier system (Admin, Editor, Member) is exactly what we needed.",
+        highlight: "@CollabIt_App",
       },
       {
         name: "Sophia Martinez",

@@ -388,7 +388,7 @@ const Hero = React.forwardRef<HTMLDivElement, HeroProps>(
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
                 <span className="text-violet-900 dark:text-violet-300 text-sm font-medium flex items-center">
-                  <Zap className="h-4 w-4 mr-1.5" /> Introducing Nudge
+                  <Zap className="h-4 w-4 mr-1.5" /> Introducing CollabIt
                 </span>
               </motion.div>
               <motion.h1

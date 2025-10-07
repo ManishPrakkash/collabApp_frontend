@@ -141,7 +141,7 @@ export default function Header() {
               </motion.div>
 
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-700 to-purple-600">
-                Nothing
+                CollabIt
               </span>
             </Link>
             <nav className="hidden sm:ml-8 sm:flex sm:space-x-1">
